@@ -9,9 +9,9 @@ build:
     pre_ci: 
       - docker build -t test/micro-api .
     pre_ci_boot:
-      - image_name: test/micro-api
-      - image_tag: latest
-      - pull: false
+      image_name: test/micro-api
+      image_tag: latest
+      pull: false
     ci:
       - grunt    
 
