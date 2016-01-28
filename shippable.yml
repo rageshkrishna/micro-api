@@ -4,19 +4,26 @@ language: node_js
 # version numbers, testing against one version of node
 node_js:
     - 0.10.33
+    
+build:
+    pre_ci: 
+      - docker build -t test/micro-api .
+    pre_ci_boot:
+      - image_name: test/micro-api
+      - image_tag: latest
+      - pull: false
+    ci:
+      - grunt    
 
-env:
-    - XUNIT_FILE=./shippable/testresults/result.xml API_PORT=3001
+#env:
+#    - XUNIT_FILE=./shippable/testresults/result.xml API_PORT=3001
 
-before_install:
-    - node --version
-    - mkdir -p ./shippable/testresults
-    - mkdir -p ./shippable/codecoverage
+#before_install:
+#    - node --version
+#    - mkdir -p ./shippable/testresults
+#    - mkdir -p ./shippable/codecoverage
 
-script:
-    - grunt
-
-after_script:
-    - ./node_modules/.bin/istanbul cover grunt -- -u tdd
-    - ./node_modules/.bin/istanbul report cobertura --dir  ./shippable/codecoverage/
-    - echo $BUILD_NUMBER > ~/buildConfig.txt
+#after_script:
+#    - ./node_modules/.bin/istanbul cover grunt -- -u tdd
+#    - ./node_modules/.bin/istanbul report cobertura --dir  ./shippable/codecoverage/
+#   - echo $BUILD_NUMBER > ~/buildConfig.txt
