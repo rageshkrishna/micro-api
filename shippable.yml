@@ -15,6 +15,7 @@ build:
     ci:
       - pwd
       - ls -al
+      - npm install grunt --save-dev
       - grunt    
 
 #env:
